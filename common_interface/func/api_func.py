@@ -80,7 +80,7 @@ class OpenApi:
             eg. {"result":{"code":0,"message":""},"data":{"algo_id":"Detect_1710563249"}}    
         """
         body = {
-            "app_packet_local_uri": app_packet_local_uri,
+            "uri": app_packet_local_uri,
             "algo_type": algo_type,
             "algo_name": algo_name,
             "algo_version": algo_version,

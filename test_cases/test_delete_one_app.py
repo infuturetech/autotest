@@ -1,0 +1,36 @@
+# -*- coding: utf-8 -*-
+
+import pytest
+import logging
+import time
+
+from common_interface.func.api_func import OpenApi
+from aws.common import upload_app_file_to_server
+from aws.tools import region_id, find_items_in_dict
+from contants.global_vars import *
+
+log = logging.getLogger(__name__)
+
+@pytest.mark.p0
+def test_delete_one_app(host):
+    """
+    正确删除一条算法包
+    Args:
+        host (_type_): _description_
+    """
+    log.info("测试点: 验证上传一条路径正确的算法包")
+
+    log.info("上传算法包到仓库")
+    local_path = upload_app_file_to_server(host)
+    rr = OpenApi.upload_app_packet(host, local_path, algo_type=1, algo_name="人脸检测demo", algo_version="v1.0", describe="测试")
+    algo_id = rr["data"].get("algo_id", None)
+    log.info(f"算法包id: {algo_id}")
+
+    ret = OpenApi.delete_app_packet(host, algo_id)
+    apps = OpenApi.get_app_packet_list(host)
+
+    assert ret["result"]["code"] == 0 and len(apps["data"]) == 0
+
+
+if __name__ == "__main__":
+        pytest.main(['-vs', f"{__file__}"])

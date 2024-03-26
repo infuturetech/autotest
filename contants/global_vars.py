@@ -22,3 +22,6 @@ rtsp_1k = "rtsp://127.0.0.1:8554/test"
 rtsp_2k = "rtsp://127.0.0.1:8554/test"
 
 rtsp_4k = "rtsp://127.0.0.1:8554/test"
+
+# 测试app包存储于盒子端的路径
+test_app_server_path = "/home/nvidia/test_app"
