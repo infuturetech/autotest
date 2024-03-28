@@ -204,8 +204,8 @@ class OpenApi:
             line_num (_type_): 指定日志行数
         """
         body = {
-            "service_name": service_name,
-            "line_num": line_num
+            "name": service_name,
+            "num": line_num
         }
         log.info(f"invoke {const.API_URLS.GET_LOG_DETAIL} {body}")          
         api = Func.api(host, body=body, **const.API_URLS.GET_LOG_DETAIL)
