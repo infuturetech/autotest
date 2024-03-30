@@ -11,14 +11,14 @@ from contants.global_vars import *
 
 log = logging.getLogger(__name__)
 
-@pytest.mark.p0
-def test_get_service_log_detail_content(host):
+@pytest.mark.p2
+def test_get_service_log_detail_content_line_0(host):
     """
-    正确设置组件和行数查询具体的日志内容
+    查询组件日志内容设置的行数为0
     Args:
         host (_type_): _description_
     """
-    log.info("测试点: 正确设置组件和行数查询具体的日志内容")
+    log.info("测试点: 查询组件日志内容设置的行数为0")
 
     r = OpenApi.get_system_info(host)
 
@@ -26,7 +26,7 @@ def test_get_service_log_detail_content(host):
     name = service["name"]
     paths = service["path"]
 
-    logs = OpenApi.get_service_log_detail(host, name, 5) 
+    logs = OpenApi.get_service_log_detail(host, name, 0) 
     assert logs
     
 

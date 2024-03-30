@@ -64,3 +64,6 @@ class API_URLS:
     # 删除相机
     DELETE_CAMERA = {"method": "POST", "uri": "/openapi/v1/camera/delete"}    
 
+    # 注册回调
+    SET_CALL_BACK = {"method": "POST", "uri": "/openapi/v1/managecore/notify"}   
+

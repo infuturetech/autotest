@@ -11,24 +11,21 @@ from contants.global_vars import *
 
 log = logging.getLogger(__name__)
 
-@pytest.mark.p0
-def test_get_service_log_detail_content(host):
+@pytest.mark.p2
+def test_delete_invalid_alg_result_id(host):
     """
-    正确设置组件和行数查询具体的日志内容
+    删除一条不存在的算法推理结果
     Args:
         host (_type_): _description_
     """
-    log.info("测试点: 正确设置组件和行数查询具体的日志内容")
+    log.info("测试点: 删除一条不存在的算法推理结果")
 
-    r = OpenApi.get_system_info(host)
+    # log.info("上传算法包到仓库")
+    # local_path = upload_app_file_to_server(host)
+    rr = OpenApi.delte_algo_task_result_by_id(host, "test001")
 
-    service = r["data"]["service"][0]
-    name = service["name"]
-    paths = service["path"]
+    assert rr["result"]["code"] == 0
 
-    logs = OpenApi.get_service_log_detail(host, name, 5) 
-    assert logs
-    
 
 if __name__ == "__main__":
         pytest.main(['-vs', f"{__file__}"])

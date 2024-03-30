@@ -11,22 +11,22 @@ from contants.global_vars import *
 
 log = logging.getLogger(__name__)
 
-@pytest.mark.p0
-def test_get_service_log_detail_content(host):
+@pytest.mark.p1
+def test_get_service_log_detail_content_lines_greather_than_real(host):
     """
-    正确设置组件和行数查询具体的日志内容
+    查询组件日志内容设置的行数大于实际的内容数量
     Args:
         host (_type_): _description_
     """
-    log.info("测试点: 正确设置组件和行数查询具体的日志内容")
+    log.info("测试点: 查询组件日志内容设置的行数大于实际的内容数量")
 
     r = OpenApi.get_system_info(host)
 
-    service = r["data"]["service"][0]
+    service = r["data"]["service"][1]
     name = service["name"]
     paths = service["path"]
 
-    logs = OpenApi.get_service_log_detail(host, name, 5) 
+    logs = OpenApi.get_service_log_detail(host, name, 10000) 
     assert logs
     
 
