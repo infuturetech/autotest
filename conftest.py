@@ -16,6 +16,7 @@ from typing import Tuple
 from typing import Optional
 from typing import List
 import warnings
+from common_interface.func.api_func import OpenApi
 
 log = logging.getLogger("conftest")
 
@@ -71,6 +72,11 @@ def pytest_runtest_logstart(nodeid: str, location: Tuple[str, Optional[int], str
 
 
 def pytest_runtest_setup(item: pytest.Item):
+
+    try:
+        clear_env(host)
+    except:
+        pass
     try:
         setattr(item.obj, "start_time", time.strftime('%Y-%m-%dT%H:%M:%SZ', time.localtime(int(time.time() - 8*3600))))
     except Exception:
@@ -182,6 +188,26 @@ def pytest_runtest_makereport(item, call):
                 pod_labels = getattr(item.obj.__func__, "pod_labels", [])
 
 
+@pytest.fixture(scope="session", autouse=True)
+def clear_env(host):
+    log.info("清理环境")
+
+    instances = OpenApi.get_algo_task_list(host)
+    tasks = instances.get("data", [])
+    if tasks:
+        for task in tasks:
+            algo_id = task["algo_id"]
+            stream_id = task["stream_id"]            
+            OpenApi.delete_algo_task(host, algo_id, stream_id)
+
+    apps = OpenApi.get_app_packet_list(host)
+    datas = apps.get("data", [])
+    if datas:
+        for app in datas:
+            algo_id = app["algo_id"]
+            OpenApi.delete_app_packet(host, algo_id)
+
+
 @pytest.fixture(scope="session")
 def host() -> str:
     """
@@ -203,6 +229,3 @@ def prepare_logger_log_level():
     logging.getLogger("paramiko").setLevel(logging.WARNING)
     logging.getLogger("aiokafka").setLevel(logging.ERROR)
     return ""
-
-
-print("aaaaaaaaaaaaaa")

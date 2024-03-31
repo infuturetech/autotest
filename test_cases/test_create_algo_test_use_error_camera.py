@@ -37,7 +37,7 @@ def test_create_algo_test_use_error_camera(host):
 
     OpenApi.delete_app_packet(host, algo_id)
     
-    assert rr2["result"]["code"] == 0
+    assert rr2["result"]["code"] != 0
 
 
 if __name__ == "__main__":

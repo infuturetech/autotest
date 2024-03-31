@@ -36,14 +36,6 @@ def test_search_algo_results_use_invalid_time_rang(host):
         "step": 2
     }
 
-    rr2 = OpenApi.create_algo_task(host, algo_id, camera_id, decode_config=decoder_cfg)
-    stream_id = rr2["data"]["stream_id"]
-    log.info(f"stream_id: {stream_id}")
-    
-
-
-    time.sleep(30)
-
     start_time = get_remote_host_utc_time(host, is_utc=False)
     log.info(f"查询开始时间点: {start_time}")
 
@@ -51,6 +43,14 @@ def test_search_algo_results_use_invalid_time_rang(host):
 
     end_time = get_remote_host_utc_time(host, is_utc=False)
     log.info(f"查询结束时间点: {end_time}")
+
+    rr2 = OpenApi.create_algo_task(host, algo_id, camera_id, decode_config=decoder_cfg)
+    stream_id = rr2["data"]["stream_id"]
+    log.info(f"stream_id: {stream_id}")
+    
+
+    time.sleep(30)
+
 
     results = OpenApi.search_algo_task_result_time_range(host, stream_id, algo_id, start_time, end_time)
 
@@ -64,7 +64,7 @@ def test_search_algo_results_use_invalid_time_rang(host):
 
     OpenApi.delete_app_packet(host, algo_id)
     
-    assert len(results["data"]) > 0
+    assert len(results["data"]) == 0
 
 
 if __name__ == "__main__":

@@ -29,4 +29,5 @@ test_app_server_path = "/home/nvidia/test_app"
 # 测试工具mock监听回调接口
 mock_callback_api = "http://127.0.0.1:9988/callback"
 
+
 installer_path = "/home/nvidia/infuturetech/installer"

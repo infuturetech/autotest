@@ -53,6 +53,8 @@ def test_create_two_algo_task_use_diff_camera_and_diff_app(host):
     ret = OpenApi.delete_camera(host, camera_id)
 
     OpenApi.delete_app_packet(host, algo_id)
+
+    OpenApi.delete_app_packet(host, algo_id2)
     
     assert stream_id and stream_id2
 

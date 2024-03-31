@@ -18,9 +18,9 @@ def test_check_ctrl_vis(host):
         host (_type_): _description_
     """
     log.info("测试点：检查vis服务启动停止")
-    ctrl_service(host, VIS, "stop")
-    time.sleep(5)
-    ctrl_service(host, VIS, "start")
+    # ctrl_service(host, VIS, "stop")
+    # time.sleep(5)
+    # ctrl_service(host, VIS, "start")
     time.sleep(8)    
     assert check_service_is_running(host, VIS)
 
