@@ -10,6 +10,7 @@ from contants.global_vars import *
 
 log = logging.getLogger(__name__)
 
+
 @pytest.mark.p0
 def test_check_ctrl_vis(host):
     """
@@ -21,9 +22,9 @@ def test_check_ctrl_vis(host):
     # ctrl_service(host, VIS, "stop")
     # time.sleep(5)
     # ctrl_service(host, VIS, "start")
-    time.sleep(8)    
+    time.sleep(8)
     assert check_service_is_running(host, VIS)
 
 
 if __name__ == "__main__":
-        pytest.main(['-vs', f"{__file__}"])
+    pytest.main(['-vs', f"{__file__}"])

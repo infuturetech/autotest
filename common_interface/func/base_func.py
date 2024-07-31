@@ -26,10 +26,10 @@ from jsonpath_ng.ext import parse
 # import viper_interface.interf_const as const
 # from viper_common.common.ssh import Client
 # from viper_common.constants.service.check_test_service import CheckService
-from ..api import Api as WrapperApi
+from common_interface.api import Api as WrapperApi
 # from viper_interface.api import token_handler
 # from viper_interface.const import set_viper_version
-from ..log import log_config, logging
+from common_interface.log import log_config, logging
 
 LOG_LEVEL = {'CRITICAL': 50, 'ERROR': 40, 'WARNING': 30, 'INFO': 20, 'DEBUG': 10}
 log = logging.getLogger(__name__)

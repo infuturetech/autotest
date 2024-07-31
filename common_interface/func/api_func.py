@@ -1,8 +1,7 @@
 # 盒子平台服务接口封装
+from common_interface.func.base_func import Func
 
-from .. import interf_const as const
-
-from ..func import base_func as Func
+from common_interface import interf_const as const
 
 log = Func.log
 

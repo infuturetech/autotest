@@ -11,6 +11,7 @@ from contants.global_vars import *
 
 log = logging.getLogger(__name__)
 
+
 @pytest.mark.p1
 def test_create_two_algo_task_get_algo_list(host):
     """
@@ -19,25 +20,28 @@ def test_create_two_algo_task_get_algo_list(host):
         host (_type_): _description_
     """
     log.info("测试点: 下发了两条推理任务，查询算法实例列表")
-    camera_data = OpenApi.add_camera_data(host, camera_name="test_1k", region_id=region_id(), address=rtsp_1k, factory="mock", protocol="rtsp")
+    camera_data = OpenApi.add_camera_data(host, camera_name="test_1k", region_id=region_id(), address=rtsp_1k,
+                                          factory="mock", protocol="rtsp")
     log.info(f"创建点位返回结果: {camera_data}")
     _datas = find_items_in_dict(camera_data, "camera_id")
     camera_id = _datas.get("camera_id", None)
     log.info(f"相机点位id: {camera_id}")
 
-    camera_data2 = OpenApi.add_camera_data(host, camera_name="test_2k", region_id=region_id(), address=rtsp_2k, factory="mock", protocol="rtsp")
+    camera_data2 = OpenApi.add_camera_data(host, camera_name="test_2k", region_id=region_id(), address=rtsp_2k,
+                                           factory="mock", protocol="rtsp")
     log.info(f"创建点位2返回结果: {camera_data2}")
     _datas2 = find_items_in_dict(camera_data2, "camera_id")
     camera_id2 = _datas2.get("camera_id", None)
-    log.info(f"相机点位2id: {camera_id2}")    
+    log.info(f"相机点位2id: {camera_id2}")
 
     log.info("上传算法包到仓库")
     local_path = upload_app_file_to_server(host)
-    rr = OpenApi.upload_app_packet(host, local_path, algo_type=1, algo_name="人脸检测demo", algo_version="v1.0", describe="测试")
+    rr = OpenApi.upload_app_packet(host, local_path, algo_type=1, algo_name="人脸检测demo", algo_version="v1.0",
+                                   describe="测试")
     algo_id = rr["data"]["algo_id"]
-    log.info(f"算法包id: {algo_id}")    
+    log.info(f"算法包id: {algo_id}")
 
-    decoder_cfg =  {
+    decoder_cfg = {
         "strategy": "KEY",
         "step": 2
     }
@@ -45,24 +49,23 @@ def test_create_two_algo_task_get_algo_list(host):
     rr2 = OpenApi.create_algo_task(host, algo_id, camera_id, decode_config=decoder_cfg)
     stream_id = rr2["data"]["stream_id"]
     log.info(f"stream_id: {stream_id}")
-    time.sleep(5)    
+    time.sleep(5)
 
     rr3 = OpenApi.create_algo_task(host, algo_id, camera_id2, decode_config=decoder_cfg)
     stream_id2 = rr3["data"]["stream_id"]
-    log.info(f"stream_id2: {stream_id2}")    
+    log.info(f"stream_id2: {stream_id2}")
     time.sleep(10)
 
     tasks = OpenApi.get_algo_task_list(host)
 
-
     OpenApi.delete_camera(host, camera_id)
 
-    OpenApi.delete_camera(host, camera_id2)    
+    OpenApi.delete_camera(host, camera_id2)
 
     OpenApi.delete_app_packet(host, algo_id)
-    
+
     assert len(tasks["data"]) == 2
 
 
 if __name__ == "__main__":
-        pytest.main(['-vs', f"{__file__}"])
+    pytest.main(['-vs', f"{__file__}"])

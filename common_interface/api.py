@@ -26,9 +26,9 @@ import aiohttp
 from requests import adapters, Session
 import urllib3
 
-from ..contants.global_vars import SSH_USER, SSH_PASSWORD
-from ..common_interface.log import AioLog, logging
-from ..common_interface.interf_const import UrlPrefix
+from contants.global_vars import SSH_USER, SSH_PASSWORD
+from common_interface.log import AioLog, logging
+from common_interface.interf_const import UrlPrefix
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 

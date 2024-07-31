@@ -6,7 +6,6 @@ import pytest
 from _pytest.warning_types import PytestUnknownMarkWarning
 import time
 
-import sys
 
 from _pytest.python import Metafunc
 from _pytest.main import Session

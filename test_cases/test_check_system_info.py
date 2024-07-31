@@ -11,6 +11,7 @@ from contants.global_vars import *
 
 log = logging.getLogger(__name__)
 
+
 @pytest.mark.p0
 def test_check_system_info(host):
     """
@@ -22,7 +23,7 @@ def test_check_system_info(host):
 
     r = OpenApi.get_system_info(host)
     assert len(r["data"]["service"]) > 0
-    
+
 
 if __name__ == "__main__":
-        pytest.main(['-vs', f"{__file__}"])
+    pytest.main(['-vs', f"{__file__}"])

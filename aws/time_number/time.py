@@ -2,8 +2,9 @@ import datetime
 import time
 from pyrfc3339 import generate, parse
 
-from contants.global_vars import SSH_USER, SSH_PASSWORD
 from aws.ssh import SSH
+from contants.global_vars import SSH_USER, SSH_PASSWORD
+
 
 __all__ = ['get_utc_time', 'utc2bjt', 'get_remote_host_utc_format_time', 'get_remote_host_utc_time',
            'string_time_to_timestamp', 'string_time_to_utc']

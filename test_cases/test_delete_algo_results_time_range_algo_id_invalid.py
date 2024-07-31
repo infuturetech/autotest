@@ -12,6 +12,7 @@ from aws.time_number.time import get_remote_host_utc_time
 
 log = logging.getLogger(__name__)
 
+
 @pytest.mark.p2
 def test_delete_algo_results_time_range_algo_id_invalid(host):
     """
@@ -20,7 +21,8 @@ def test_delete_algo_results_time_range_algo_id_invalid(host):
         host (_type_): _description_
     """
     log.info("测试点: 删除指定的算法不存在的推理结果")
-    camera_data = OpenApi.add_camera_data(host, camera_name="test_1k", region_id=region_id(), address=rtsp_1k, factory="mock", protocol="rtsp")
+    camera_data = OpenApi.add_camera_data(host, camera_name="test_1k", region_id=region_id(), address=rtsp_1k,
+                                          factory="mock", protocol="rtsp")
     log.info(f"创建点位返回结果: {camera_data}")
     _datas = find_items_in_dict(camera_data, "camera_id")
     camera_id = _datas.get("camera_id", None)
@@ -28,10 +30,11 @@ def test_delete_algo_results_time_range_algo_id_invalid(host):
 
     log.info("上传算法包到仓库")
     local_path = upload_app_file_to_server(host)
-    rr = OpenApi.upload_app_packet(host, local_path, algo_type=1, algo_name="人脸检测demo", algo_version="v1.0", describe="测试")
+    rr = OpenApi.upload_app_packet(host, local_path, algo_type=1, algo_name="人脸检测demo", algo_version="v1.0",
+                                   describe="测试")
     algo_id = rr["data"]["algo_id"]
     log.info(f"算法包id: {algo_id}")
-    decoder_cfg =  {
+    decoder_cfg = {
         "strategy": "KEY",
         "step": 2
     }
@@ -39,7 +42,7 @@ def test_delete_algo_results_time_range_algo_id_invalid(host):
     rr2 = OpenApi.create_algo_task(host, algo_id, camera_id, decode_config=decoder_cfg)
     stream_id = rr2["data"]["stream_id"]
     log.info(f"stream_id: {stream_id}")
-    
+
     start_time = get_remote_host_utc_time(host, is_utc=False)
     log.info(f"查询开始时间点: {start_time}")
 
@@ -59,9 +62,9 @@ def test_delete_algo_results_time_range_algo_id_invalid(host):
     ret = OpenApi.delete_camera(host, camera_id)
 
     OpenApi.delete_app_packet(host, algo_id)
-    
+
     assert rr
 
 
 if __name__ == "__main__":
-        pytest.main(['-vs', f"{__file__}"])
+    pytest.main(['-vs', f"{__file__}"])

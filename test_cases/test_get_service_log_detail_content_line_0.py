@@ -11,6 +11,7 @@ from contants.global_vars import *
 
 log = logging.getLogger(__name__)
 
+
 @pytest.mark.p2
 def test_get_service_log_detail_content_line_0(host):
     """
@@ -26,9 +27,9 @@ def test_get_service_log_detail_content_line_0(host):
     name = service["name"]
     paths = service["path"]
 
-    logs = OpenApi.get_service_log_detail(host, name, 0) 
+    logs = OpenApi.get_service_log_detail(host, name, 0)
     assert logs
-    
+
 
 if __name__ == "__main__":
-        pytest.main(['-vs', f"{__file__}"])
+    pytest.main(['-vs', f"{__file__}"])

@@ -11,6 +11,7 @@ from contants.global_vars import *
 
 log = logging.getLogger(__name__)
 
+
 @pytest.mark.p0
 def test_delete_one_app(host):
     """
@@ -22,7 +23,8 @@ def test_delete_one_app(host):
 
     log.info("上传算法包到仓库")
     local_path = upload_app_file_to_server(host)
-    rr = OpenApi.upload_app_packet(host, local_path, algo_type=1, algo_name="人脸检测demo", algo_version="v1.0", describe="测试")
+    rr = OpenApi.upload_app_packet(host, local_path, algo_type=1, algo_name="人脸检测demo", algo_version="v1.0",
+                                   describe="测试")
     algo_id = rr["data"].get("algo_id", None)
     log.info(f"算法包id: {algo_id}")
 
@@ -33,4 +35,4 @@ def test_delete_one_app(host):
 
 
 if __name__ == "__main__":
-        pytest.main(['-vs', f"{__file__}"])
+    pytest.main(['-vs', f"{__file__}"])
