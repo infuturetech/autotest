@@ -1,4 +1,3 @@
-
 import logging
 import os
 
@@ -8,6 +7,7 @@ from resources import test_algo_app_file
 from contants.global_vars import test_app_server_path, installer_path
 
 log = logging.getLogger(__name__)
+
 
 def check_service_is_running(host, service_name):
     """
@@ -26,7 +26,7 @@ def check_service_is_running(host, service_name):
             return True
         else:
             return False
-        
+
 
 def ctrl_service(host, service_name, ctrl="status"):
     """
@@ -38,28 +38,28 @@ def ctrl_service(host, service_name, ctrl="status"):
     """
     if service_name not in ALL_SERVICE:
         raise Exception(f"错误! {service_name}服务不在有效范围内!")
-    log.info(f"{ctrl} {service_name}")  
+    log.info(f"{ctrl} {service_name}")
     if ctrl == "status":
-        return check_service_is_running(host, service_name) 
+        return check_service_is_running(host, service_name)
     else:
         cmd = f"systemctl {ctrl} {service_name}"
         with ssh_run_cmd_plus(host) as _ssh:
-             _ssh.run_cmd(cmd, sudo=True)
+            _ssh.run_cmd(cmd, sudo=True)
 
 
 def upload_app_file_to_server(host, local_app_file=test_algo_app_file):
-        """
+    """
         将测试app包上传到盒子
         Args:
             host (_type_): _description_
             local_app_file (_type_, optional): _description_. Defaults to test_algo_app_file.
         """
-        print(f"将测试算法包{local_app_file}上传到{test_app_server_path}")
-        with ssh_run_cmd_plus(host) as _ssh:
-            _ssh.upload_file(local_app_file, f"{test_app_server_path}/{os.path.basename(local_app_file)}")
-            log.info(f"将测试算法包{local_app_file}上传完成")
+    print(f"将测试算法包{local_app_file}上传到{test_app_server_path}")
+    with ssh_run_cmd_plus(host) as _ssh:
+        _ssh.upload_file(local_app_file, f"{test_app_server_path}/{os.path.basename(local_app_file)}")
+        log.info(f"将测试算法包{local_app_file}上传完成")
 
-            return f"{test_app_server_path}/{os.path.basename(local_app_file)}"
+        return f"{test_app_server_path}/{os.path.basename(local_app_file)}"
 
 
 def do_recv_algo_result_call_back(host, command="start"):
@@ -70,12 +70,13 @@ def do_recv_algo_result_call_back(host, command="start"):
         command (str, optional): _description_. Defaults to "start".
     """
     save_log_file = "/tmp/recv_callback.txt"
+
     def get_recv_pid(_ssh):
         cmd = "ps -elf | grep 'client rcv' | grep -v 'grep' | awk '{print $4}'"
         ppid = _ssh.run_cmd(cmd)
         log.info(f"回调监听进程id: {ppid}")
         return ppid
-    
+
     with ssh_run_cmd_plus(host) as _ssh:
         if command == "start":
             _pid = get_recv_pid(_ssh)
@@ -89,7 +90,7 @@ def do_recv_algo_result_call_back(host, command="start"):
         else:
             _pid = get_recv_pid(_ssh)
             if _pid:
-                _ssh.run_cmd(f"kill {_pid[0]}")           
+                _ssh.run_cmd(f"kill {_pid[0]}")
             ret = _ssh.run_cmd(f"cat {save_log_file} | head -n 2")
 
             return ret
@@ -97,4 +98,4 @@ def do_recv_algo_result_call_back(host, command="start"):
 
 if __name__ == "__main__":
     # print(check_service_is_running("192.168.101.61", AMS))   
-    upload_app_file_to_server("192.168.101.61") 
+    upload_app_file_to_server("192.168.101.61")

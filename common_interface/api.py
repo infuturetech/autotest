@@ -26,9 +26,9 @@ import aiohttp
 from requests import adapters, Session
 import urllib3
 
-from contants.global_vars import SSH_USER, SSH_PASSWORD
-from common_interface.log import AioLog, logging
-from common_interface.interf_const import UrlPrefix
+from ..contants.global_vars import SSH_USER, SSH_PASSWORD
+from ..common_interface.log import AioLog, logging
+from ..common_interface.interf_const import UrlPrefix
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -72,7 +72,7 @@ class Api:
         self.protocol = protocol
 
         if self.host.split(':')[-1] in [
-                '30443', '30063'
+            '30443', '30063'
         ]:  # openapi:30443, elasticsearch: 30063
             self.protocol = 'https'
         self.headers = {} if headers is None else headers
@@ -206,7 +206,7 @@ class Api:
             r = self.response.json()
             if self.log_msg_flag:
                 r['log_msg'] = ''.join(self.log_msg)
-            self.log.info(f"response> {r}")    
+            self.log.info(f"response> {r}")
             return r
         except Exception as e:
             r = self.response.content
@@ -294,7 +294,7 @@ class Api:
             # An invalid response was received from the upstream server
             # 一般发生在网关和后端服务网络不稳定时
             time.sleep(1)
-            return True               
+            return True
 
         return False
 
@@ -340,13 +340,13 @@ async def _req(method: str,
             r = resp.status, time.time() - t, resp_b
             if log:
                 if r[0] == 200:
-                    await log.debug(f'{"-"*120}\nRequest: {method} {url} \n'
+                    await log.debug(f'{"-" * 120}\nRequest: {method} {url} \n'
                                     f'Response: {r[0]} {r[1]}\n'
                                     f'{filter_long_value(copy.deepcopy(r[2]))}'
                                     )
                 else:
                     await log.error(
-                        f'{"-"*120}\nRequest: {method} {url} \n'
+                        f'{"-" * 120}\nRequest: {method} {url} \n'
                         f'{filter_long_value(copy.deepcopy(json))}\nResponse: {r[0]} {r[1]}\n'
                         f'{filter_long_value(copy.deepcopy(r[2]))}')
     except Exception as e:
@@ -354,7 +354,7 @@ async def _req(method: str,
             e) + '\n' + traceback.format_exc()
         if log:
             await log.critical(
-                f'{"-"*120}\nRequest: {method} {url} \n'
+                f'{"-" * 120}\nRequest: {method} {url} \n'
                 f'{filter_long_value(copy.deepcopy(json))}\nResponse: {r[0]} {r[1]}\n{r[2]}'
             )
     return r
@@ -400,7 +400,7 @@ async def req(host: str,
             if token:
                 if not headers:
                     headers = s.headers
-                headers.update(loads(token))            
+                headers.update(loads(token))
             if session:
                 status_code, elapse, rsp_text = await _req(
                     method, url, json, params, data, headers, session, log)

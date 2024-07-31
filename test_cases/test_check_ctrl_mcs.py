@@ -10,6 +10,7 @@ from contants.global_vars import *
 
 log = logging.getLogger(__name__)
 
+
 @pytest.mark.p0
 def test_check_ctrl_mcs(host):
     """
@@ -21,9 +22,10 @@ def test_check_ctrl_mcs(host):
     ctrl_service(host, MCS, "stop")
     time.sleep(5)
     ctrl_service(host, MCS, "start")
-    time.sleep(8)    
+    time.sleep(8)
     assert check_service_is_running(host, MCS)
 
 
 if __name__ == "__main__":
-        pytest.main(['-vs', f"{__file__}"])
+    # pytest.main(['-vs', f"{__file__}"])
+    log.info("测试点：检查mcs服务启动停止")

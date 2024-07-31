@@ -16,7 +16,7 @@ from typing import Tuple
 from typing import Optional
 from typing import List
 import warnings
-from common_interface.func.api_func import OpenApi
+from .common_interface.func.api_func import OpenApi
 
 log = logging.getLogger("conftest")
 
@@ -32,12 +32,14 @@ def get_config_with_sep_env():
 
 def read_from_local_config():
     _dir_path = os.path.abspath(os.path.dirname(__file__))
-    dir_path =os.path.join(_dir_path, "local_config.json")
+    dir_path = os.path.join(_dir_path, "local_config.json")
     with open(dir_path, 'r') as f:
         temp = json.loads(f.read())
         return temp
 
+
 config = get_config_with_sep_env()
+
 
 def pytest_addoption(parser):
     """增加pytest命令行参数
@@ -54,7 +56,8 @@ def pytest_configure(config):
     Args:
         config (_pytest.config.Config): Pytest Config对象
     """
-    config.addinivalue_line("markers", "isSkipVersion(version_list): mark test to skip once match the version requirement")
+    config.addinivalue_line("markers",
+                            "isSkipVersion(version_list): mark test to skip once match the version requirement")
 
 
 def pytest_runtest_logstart(nodeid: str, location: Tuple[str, Optional[int], str]):
@@ -72,26 +75,28 @@ def pytest_runtest_logstart(nodeid: str, location: Tuple[str, Optional[int], str
 
 
 def pytest_runtest_setup(item: pytest.Item):
-
     try:
         clear_env(host)
     except:
         pass
     try:
-        setattr(item.obj, "start_time", time.strftime('%Y-%m-%dT%H:%M:%SZ', time.localtime(int(time.time() - 8*3600))))
+        setattr(item.obj, "start_time",
+                time.strftime('%Y-%m-%dT%H:%M:%SZ', time.localtime(int(time.time() - 8 * 3600))))
     except Exception:
-        setattr(item.obj.__func__, "start_time", time.strftime('%Y-%m-%dT%H:%M:%SZ', time.localtime(int(time.time() - 8*3600))))
+        setattr(item.obj.__func__, "start_time",
+                time.strftime('%Y-%m-%dT%H:%M:%SZ', time.localtime(int(time.time() - 8 * 3600))))
     if config.get("case_version") is None:
         return
     case_version = float(config.get("case_version")[1:].replace("_", "."))
     # 配置参数中case_version小于测试用例标签version，则跳过
     find_version_mark = [m.name for m in item.iter_markers() if re.fullmatch(r"v\d_\d", m.name)]
     if (
-        config.get("case_version") is not None
-        and len(find_version_mark) > 0
-        and config.get("case_version") < find_version_mark[0]
+            config.get("case_version") is not None
+            and len(find_version_mark) > 0
+            and config.get("case_version") < find_version_mark[0]
     ):
-        pytest.skip("Skipped: input version[%s] < test version[%s]" % (config.get("case_version"), find_version_mark[0]))
+        pytest.skip(
+            "Skipped: input version[%s] < test version[%s]" % (config.get("case_version"), find_version_mark[0]))
     # case_version参数满足isSkipVersion条件判断, 跳过该用例
     patterns = [mark.args for mark in item.iter_markers(name="skipVersion")]
     if patterns:
@@ -119,6 +124,7 @@ def pytest_runtest_setup(item: pytest.Item):
                 f"跳过执行: 原因({reasons}), 当前版本<{case_version}>, 符合跳过执行的条件: {patterns}, "
                 + "说明: 浮点数指定跳过的单个版本; 元组指定跳过的版本闭区间, 即满足tuple[0]<=当前版本<=tuple[1]"
             )
+
 
 def pytest_sessionfinish(session, exitstatus):
     # allure报告展示环境参数
@@ -154,7 +160,7 @@ def pytest_runtest_makereport(item, call):
     except Exception:
         pod_labels = getattr(item.obj.__func__, "pod_labels", [])
 
-    out = yield # 获取setup/call/teardown的执行结果
+    out = yield  # 获取setup/call/teardown的执行结果
 
     if pod_labels:
         try:
@@ -197,7 +203,7 @@ def clear_env(host):
     if tasks:
         for task in tasks:
             algo_id = task["algo_id"]
-            stream_id = task["stream_id"]            
+            stream_id = task["stream_id"]
             OpenApi.delete_algo_task(host, algo_id, stream_id)
 
     apps = OpenApi.get_app_packet_list(host)

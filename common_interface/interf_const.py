@@ -17,8 +17,8 @@ __all__ = [
 
 UrlPrefix = {"iis_prefix": "/engine/image-ingress"}
 
-class API_URLS:
 
+class API_URLS:
     # 添加相机
     ADD_CAMERA = {"method": "POST", "uri": "/openapi/v1/camera/add"}
 
@@ -41,7 +41,7 @@ class API_URLS:
     GET_ALGO_TASK_LIST = {"method": "GET", "uri": "/openapi/v1/algo/ins/list"}
 
     # 查看组件日志路径列表
-    GET_LOG_PATH_LIST =  {"method": "GET", "uri": "/openapi/v1/system/info"}
+    GET_LOG_PATH_LIST = {"method": "GET", "uri": "/openapi/v1/system/info"}
 
     # 查看指定组件日志文件内容
     GET_LOG_DETAIL = {"method": "POST", "uri": "/openapi/v1/system/logtail"}
@@ -56,14 +56,13 @@ class API_URLS:
     DELETE_ALGO_RESULT_BY_TIME_RANGE = {"method": "POST", "uri": "/openapi/v1/managecore/batch_delete"}
 
     # 配置中心-查询配置
-    GET_CONFIG_LIST =  {"method": "GET", "uri": "/openapi/v1/system/info"}
+    GET_CONFIG_LIST = {"method": "GET", "uri": "/openapi/v1/system/info"}
 
     # 删除算法推理任务
     DELETE_ALGO_TASK = {"method": "POST", "uri": "/openapi/v1/algo/ins/delete"}
 
     # 删除相机
-    DELETE_CAMERA = {"method": "POST", "uri": "/openapi/v1/camera/delete"}    
+    DELETE_CAMERA = {"method": "POST", "uri": "/openapi/v1/camera/delete"}
 
     # 注册回调
-    SET_CALL_BACK = {"method": "POST", "uri": "/openapi/v1/managecore/notify"}   
-
+    SET_CALL_BACK = {"method": "POST", "uri": "/openapi/v1/managecore/notify"}

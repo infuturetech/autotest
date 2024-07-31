@@ -2,6 +2,7 @@ import datetime
 
 __all__ = ["get_utctime_one_year_ago"]
 
+
 def _now():
     """ 获取当前utc时间
 
@@ -18,6 +19,7 @@ class _DataTime:
     """ 语义化date-time
 
     """
+
     @property
     def now(self):
         """ 调用当前时间
@@ -82,7 +84,9 @@ class _DataTime:
         """
         return (_now() + datetime.timedelta(days=+7)).strftime(RFC_fmt)
 
+
 UTCDateTime = _DataTime()
+
 
 def get_utctime_one_year_ago():
     """
@@ -92,5 +96,6 @@ def get_utctime_one_year_ago():
     UTCDateTime = _DataTime()
     return UTCDateTime.one_year_ago
 
-if __name__=='__main__':
+
+if __name__ == '__main__':
     print(get_utctime_one_year_ago())

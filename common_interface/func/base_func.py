@@ -26,11 +26,10 @@ from jsonpath_ng.ext import parse
 # import viper_interface.interf_const as const
 # from viper_common.common.ssh import Client
 # from viper_common.constants.service.check_test_service import CheckService
-from common_interface.api import Api as WrapperApi
+from ..api import Api as WrapperApi
 # from viper_interface.api import token_handler
 # from viper_interface.const import set_viper_version
-from common_interface.log import log_config, logging
-
+from ..log import log_config, logging
 
 LOG_LEVEL = {'CRITICAL': 50, 'ERROR': 40, 'WARNING': 30, 'INFO': 20, 'DEBUG': 10}
 log = logging.getLogger(__name__)
@@ -83,8 +82,6 @@ def timeout(duration):
 #                 params[key] = config[key]
 #         return func(**params)
 #     return wrap
-
-
 
 
 def get_item_by_key(obj, key, result=None):
@@ -183,4 +180,3 @@ def read_from_local_config():
     with open(dir_path, 'r') as f:
         temp = json.loads(f.read())
         return temp
-

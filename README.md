@@ -8,6 +8,7 @@
 
 [4] 执行 case:  
 pytest -ra -v --alluredir=D:\projects\ats\log_report\001 D:\projects\ats\test_cases
+pytest -ra -v --alluredir=D:\PythonFiles\autotest\log_report\001 D:\PythonFiles\autotest\test_cases
 注: test_cases目录按实际修改；  
 
 

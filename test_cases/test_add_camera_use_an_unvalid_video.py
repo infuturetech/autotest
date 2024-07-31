@@ -11,6 +11,7 @@ from contants.global_vars import *
 
 log = logging.getLogger(__name__)
 
+
 @pytest.mark.p2
 def test_add_camera_use_an_unvalid_video(host):
     """
@@ -19,7 +20,8 @@ def test_add_camera_use_an_unvalid_video(host):
         host (_type_): _description_
     """
     log.info("测试点: 使用错误的rtsp流地址创建点位失败")
-    camera_data = OpenApi.add_camera_data(host, camera_name="test_1k", region_id=region_id(), address=rtsp_1k, factory="mock", protocol="rtsp")
+    camera_data = OpenApi.add_camera_data(host, camera_name="test_1k", region_id=region_id(), address=rtsp_1k,
+                                          factory="mock", protocol="rtsp")
     log.info(f"创建点位返回结果: {camera_data}")
     _datas = find_items_in_dict(camera_data, "camera_id")
     camera_id = _datas.get("camera_id", None)
@@ -31,4 +33,4 @@ def test_add_camera_use_an_unvalid_video(host):
 
 
 if __name__ == "__main__":
-        pytest.main(['-vs', f"{__file__}"])
+    pytest.main(['-vs', f"{__file__}"])

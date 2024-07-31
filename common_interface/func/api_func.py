@@ -1,10 +1,11 @@
 # 盒子平台服务接口封装
 
-import common_interface.interf_const as const
+from .. import interf_const as const
 
-from common_interface.func.base_func import Func
+from ..func import base_func as Func
 
 log = Func.log
+
 
 class OpenApi:
 
@@ -37,7 +38,6 @@ class OpenApi:
         api = Func.api(host, body=body, **const.API_URLS.GET_APP_PACKET_LIST)
         return api.get_response()
 
-    
     @staticmethod
     def add_camera_data(host, camera_name, region_id, address, factory, protocol="rtsp", body=None):
         """
@@ -63,8 +63,8 @@ class OpenApi:
 
         log.info(f"invoke {const.API_URLS.ADD_CAMERA} {body}")
         api = Func.api(host, body=body, **const.API_URLS.ADD_CAMERA)
-        return api.get_response()        
-    
+        return api.get_response()
+
     @staticmethod
     def upload_app_packet(host, app_packet_local_uri, algo_type, algo_name, algo_version, describe):
         """
@@ -86,9 +86,9 @@ class OpenApi:
             "algo_version": algo_version,
             "describe": describe
         }
-        log.info(f"invoke {const.API_URLS.UPLOAD_APP_PACKET} {body}")        
+        log.info(f"invoke {const.API_URLS.UPLOAD_APP_PACKET} {body}")
         api = Func.api(host, body=body, **const.API_URLS.UPLOAD_APP_PACKET)
-        return api.get_response()    
+        return api.get_response()
 
     @staticmethod
     def create_algo_task(host, algo_id, camera_id, decode_config):
@@ -113,10 +113,10 @@ class OpenApi:
             "camera_id": camera_id,
             "screenshot": decode_config
         }
-        log.info(f"invoke {const.API_URLS.CREATE_ALGO_TASK} {body}")            
+        log.info(f"invoke {const.API_URLS.CREATE_ALGO_TASK} {body}")
         api = Func.api(host, body=body, **const.API_URLS.CREATE_ALGO_TASK)
-        return api.get_response()            
-    
+        return api.get_response()
+
     @staticmethod
     def set_call_back(host, stream_id, post_url):
         """
@@ -130,9 +130,9 @@ class OpenApi:
             "stream_id": stream_id,
             "post_url": post_url
         }
-        log.info(f"invoke {const.API_URLS.SET_CALL_BACK} {body}")          
+        log.info(f"invoke {const.API_URLS.SET_CALL_BACK} {body}")
         api = Func.api(host, body=body, **const.API_URLS.SET_CALL_BACK)
-        return api.get_response()  
+        return api.get_response()
 
     @staticmethod
     def get_algo_task_list(host):
@@ -158,10 +158,9 @@ class OpenApi:
 
         """
         body = {}
-        log.info(f"invoke {const.API_URLS.GET_ALGO_TASK_LIST} {body}")          
+        log.info(f"invoke {const.API_URLS.GET_ALGO_TASK_LIST} {body}")
         api = Func.api(host, body=body, **const.API_URLS.GET_ALGO_TASK_LIST)
         return api.get_response()
-
 
     @staticmethod
     def get_system_info(host):
@@ -190,7 +189,7 @@ class OpenApi:
 
         """
         body = {}
-        log.info(f"invoke {const.API_URLS.GET_LOG_PATH_LIST} {body}")            
+        log.info(f"invoke {const.API_URLS.GET_LOG_PATH_LIST} {body}")
         api = Func.api(host, body=body, **const.API_URLS.GET_LOG_PATH_LIST)
         return api.get_response()
 
@@ -207,9 +206,9 @@ class OpenApi:
             "name": service_name,
             "num": line_num
         }
-        log.info(f"invoke {const.API_URLS.GET_LOG_DETAIL} {body}")          
+        log.info(f"invoke {const.API_URLS.GET_LOG_DETAIL} {body}")
         api = Func.api(host, body=body, **const.API_URLS.GET_LOG_DETAIL)
-        return api.get_response()    
+        return api.get_response()
 
     @staticmethod
     def search_algo_task_result_time_range(host, stream_id, algo_id, start_time=None, end_time=None):
@@ -229,10 +228,10 @@ class OpenApi:
         if start_time:
             body["start_time"] = start_time
         if end_time:
-            body["end_time"] = end_time  
-        log.info(f"invoke {const.API_URLS.QUERY_ALGO_RESULT_BY_TIME_RANGE} {body}")                        
+            body["end_time"] = end_time
+        log.info(f"invoke {const.API_URLS.QUERY_ALGO_RESULT_BY_TIME_RANGE} {body}")
         api = Func.api(host, body=body, **const.API_URLS.QUERY_ALGO_RESULT_BY_TIME_RANGE)
-        return api.get_response()            
+        return api.get_response()
 
     @staticmethod
     def delte_algo_task_result_by_id(host, algo_result_id):
@@ -244,10 +243,10 @@ class OpenApi:
         """
         body = {
             "algo_result_id": algo_result_id
-        }    
-        log.info(f"invoke {const.API_URLS.DELETE_ALGO_RESULT} {body}")                  
+        }
+        log.info(f"invoke {const.API_URLS.DELETE_ALGO_RESULT} {body}")
         api = Func.api(host, body=body, **const.API_URLS.DELETE_ALGO_RESULT)
-        return api.get_response()   
+        return api.get_response()
 
     @staticmethod
     def delete_algo_task_result_time_range(host, algo_id, start_time=None, end_time=None, stream_id=None):
@@ -266,12 +265,12 @@ class OpenApi:
         if start_time:
             body["start_time"] = start_time
         if end_time:
-            body["end_time"] = end_time 
+            body["end_time"] = end_time
         if stream_id:
-            body["stream_id"] = stream_id    
-        log.info(f"invoke {const.API_URLS.DELETE_ALGO_RESULT_BY_TIME_RANGE} {body}")                          
+            body["stream_id"] = stream_id
+        log.info(f"invoke {const.API_URLS.DELETE_ALGO_RESULT_BY_TIME_RANGE} {body}")
         api = Func.api(host, body=body, **const.API_URLS.DELETE_ALGO_RESULT_BY_TIME_RANGE)
-        return api.get_response()       
+        return api.get_response()
 
     @staticmethod
     def get_config_list(host):
@@ -290,7 +289,7 @@ class OpenApi:
 
         """
         body = {}
-        log.info(f"invoke {const.API_URLS.GET_CONFIG_LIST} {body}")         
+        log.info(f"invoke {const.API_URLS.GET_CONFIG_LIST} {body}")
         api = Func.api(host, body=body, **const.API_URLS.GET_CONFIG_LIST)
         return api.get_response()
 
@@ -307,10 +306,10 @@ class OpenApi:
             "algo_id": algo_id,
             "stream_id": stream_id
         }
-        log.info(f"invoke {const.API_URLS.DELETE_ALGO_TASK} {body}")           
+        log.info(f"invoke {const.API_URLS.DELETE_ALGO_TASK} {body}")
         api = Func.api(host, body=body, **const.API_URLS.DELETE_ALGO_TASK)
-        return api.get_response()   
-    
+        return api.get_response()
+
     @staticmethod
     def delete_camera(host, camera_id):
         """
@@ -322,9 +321,9 @@ class OpenApi:
         body = {
             "camera_id": camera_id
         }
-        log.info(f"invoke {const.API_URLS.DELETE_CAMERA} {body}")    
+        log.info(f"invoke {const.API_URLS.DELETE_CAMERA} {body}")
         api = Func.api(host, body=body, **const.API_URLS.DELETE_CAMERA)
-        return api.get_response()      
+        return api.get_response()
 
     @staticmethod
     def delete_app_packet(host, algo_id):
@@ -337,9 +336,9 @@ class OpenApi:
         body = {
             "algo_id": algo_id
         }
-        log.info(f"invoke {const.API_URLS.DELETE_APP_PACKET} {body}")          
+        log.info(f"invoke {const.API_URLS.DELETE_APP_PACKET} {body}")
         api = Func.api(host, body=body, **const.API_URLS.DELETE_APP_PACKET)
-        return api.get_response()    
+        return api.get_response()
 
 
 if __name__ == "__main__":

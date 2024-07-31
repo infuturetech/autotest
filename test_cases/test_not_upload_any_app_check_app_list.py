@@ -11,7 +11,8 @@ from contants.global_vars import *
 
 log = logging.getLogger(__name__)
 
-@pytest.mark.p2
+
+@pytest.mark.p1
 def test_not_upload_any_app_check_app_list(host):
     """
     未上传算法包时进行算法包列表查询
@@ -19,11 +20,11 @@ def test_not_upload_any_app_check_app_list(host):
         host (_type_): _description_
     """
     log.info("测试点:未上传算法包时进行算法包列表查询")
-  
+
     apps = OpenApi.get_app_packet_list(host)
 
     assert len(apps["data"]) == 0
 
 
 if __name__ == "__main__":
-        pytest.main(['-vs', f"{__file__}"])
+    pytest.main(['-vs', f"{__file__}"])
