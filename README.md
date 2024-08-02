@@ -8,12 +8,11 @@
 
 [4] 执行 case:  
 pytest -ra -v --alluredir=D:\projects\ats\log_report\001 D:\projects\ats\test_cases
-pytest -ra -v --alluredir=D:\PythonFiles\autotest\log_report\001 D:\PythonFiles\autotest\test_cases
+#pytest -ra -v --alluredir=/autotest/log_report/001 /autotest/test_cases
 注: test_cases目录按实际修改；  
 
 
-[5] 生成报告  
-
+[5] 生成报告
 allure generate -c -o   D:\projects\ats\log_report\allure   D:\projects\ats\log_report\001
 注: 路径1为生成的报告目录  2为步骤4输出  
 
