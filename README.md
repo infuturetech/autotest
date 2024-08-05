@@ -13,9 +13,9 @@ pytest -ra -v --alluredir=D:\projects\ats\log_report\001 D:\projects\ats\test_ca
 
 
 [5] 生成报告
-allure generate -c -o   D:\projects\ats\log_report\allure   D:\projects\ats\log_report\001
+allure generate -c -o   /autotest/log_report/allure   /autotest/log_report/001
 注: 路径1为生成的报告目录  2为步骤4输出  
 
 
-[6] allure open  D:\projects\ats\log_report\allure 打开测试报告  
+[6] allure open  /autotest/log_report/allure 打开测试报告  
 
