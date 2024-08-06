@@ -18,7 +18,7 @@ COPY . /autotest
 WORKDIR /autotest
 
 # 设置JAVA_HOME环境变量
-ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-aarch64
 ENV PATH="$JAVA_HOME/bin:$PATH"
 
 # 设置 Allure 版本
