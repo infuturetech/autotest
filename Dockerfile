@@ -18,7 +18,7 @@ COPY . /autotest
 WORKDIR /autotest
 
 # 设置JAVA_HOME环境变量
-ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-armº64
+ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-arm64
 ENV PATH="$JAVA_HOME/bin:$PATH"
 
 # 设置 Allure 版本
@@ -41,7 +41,7 @@ RUN rm -rf allure-${ALLURE_VERSION}.tgz
 EXPOSE 7010
 
 
-RUN pip3 install -r /autotest/requirements.txt
+#RUN pip3 install -r /autotest/requirements.txt
 #RUN iconv -f GBK -t UTF-8 pytest.ini -o pytest.ini
 #RUN pytest -ra -v --alluredir=/autotest/log_report/001 /autotest/test_cases
 #RUN allure generate -c -o   /autotest/log_report/allure   /autotest/log_report/001
